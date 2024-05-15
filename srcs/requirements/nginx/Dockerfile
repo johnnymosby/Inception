@@ -1,10 +1,14 @@
-FROM alpine:3.19
+FROM alpine:3.18
 
 WORKDIR /server
 
 COPY conf/nginx.conf /etc/nginx/conf.d
 
-RUN apk update && apk add --no-cache nginx openssl \
+RUN apk update \
+	&& apk upgrade \
+	&& apk add --no-cache \
+		nginx \
+		openssl \
 	&& mkdir ssl \
 	&& openssl req -x509 -noenc -newkey rsa:4096 \
 		-keyout ssl/rbasyrov.42.fr.crt \
